@@ -336,11 +336,10 @@ class ApothecaryManagementSystem:
             
             conn.commit()
             self.fetch_dataMed()
-            self.Medget_cursor()
             conn.close()
             messagebox.showinfo("Success","Medicine Added")
         except:
-            messagebox.showwarning("Invalid Data","Data entered is invalid.\nPlease check.")
+           messagebox.showwarning("Invalid Data","Data entered is invalid.\nPlease check.")
 
     def fetch_dataMed(self):
         conn=mysql.connector.connect(host="localhost",username="root",password="13112001",database="pharmacy")
@@ -354,12 +353,14 @@ class ApothecaryManagementSystem:
             conn.commit()
         conn.close()  
     #getcursor
-    def Medget_cursor(self,event=""):
+    def Medget_cursor(self,ev=""):
         cursor_row=self.medicine_table.focus()
         content=self.medicine_table.item(cursor_row)
-        row=content["values"]
-        self.refmed_var.set(row[0])
-        self.addmed_var.set(row[1]) 
+        r=list(content["values"])
+        
+        #r=content["values"]
+        self.refmed_var.set(r[0])
+        self.addmed_var.set(r[1]) 
         
     def UpdateMed(self):
         if self.refmed_var.get()==" " or self.addmed_var.get()==" ":
@@ -435,6 +436,7 @@ class ApothecaryManagementSystem:
         cursor_row=self.apothecary_table.focus()
         content=self.apothecary_table.item(cursor_row)
         row=content["values"]
+        
         self.ref_var.set(row[0])
         self.cmpName_var.set(row[1])
         self.typeMed_var.set(row[2])
